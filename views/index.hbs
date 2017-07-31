@@ -1,0 +1,157 @@
+<div data-role="page" id="login">
+  <div data-role="header" data-position="fixed">
+    <h1>Iniciar Sesión</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <form id="frm_login">
+      <div class="ui-field-contain">
+        <label for="lgn_identidad">Identidad</label>
+        <input type="text" name="lgn_identidad" id="lgn_identidad" placeholder="Número de Identidad" />
+        <br/>
+        <label for="lgn_clave">Clave</label>
+        <input type="password" name="lgn_clave" id="lgn_clave" placeholder="Contraseña" />
+        <br/>
+        <button id="btnLgnIn">Iniciar Sesión</button>
+      </div>
+    </form>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#login" class="ui-btn-active ui-state-persist">Iniciar Sesión</a></li>
+        <li><a href="#register">Registrate</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div data-role="page" id="register">
+  <div data-role="header" data-position="fixed">
+    <h1>Registrate</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <form id="frm_register">
+      <div class="ui-field-contain">
+        <label for="reg_identidad">Email</label>
+        <input type="text" name="reg_identidad" id="reg_identidad" placeholder="Número de Identidad" />
+        <br/>
+        <label for="reg_nombre">Nombre Completo</label>
+        <input type="text" name="reg_nombre" id="reg_nombre" placeholder="Nombre Completo" />
+        <br/>
+        <label for="reg_clave">Password</label>
+        <input type="password" name="reg_clave" id="reg_clave" placeholder="Contraseña" />
+        <br/>
+        <label for="reg_clave_conf">Confirm Password</label>
+        <input type="password" name="reg_clave_conf" id="reg_clave_conf" placeholder="Confirmar Contraseña" />
+        <br/>
+        <button id="btnRegLgn">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#login">Iniciar Sesión</a></li>
+        <li><a href="#register" class="ui-btn-active ui-state-persist">Registrate</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="horarios">
+  <div data-role="header" data-position="fixed">
+    <h1>Horarios</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <h4>Atención</h4>
+    <p>Las reservaciones se liberan 15 minutos antes de la salida del bus, favor ser puntuales.</p>
+    <ul data-role="listview" id="lista_horarios" data-filter="true" data-filter-placeholder="buscar horarios...">
+      <li><a href="#detalle_horario" class="ui-state-disabled"><h4>6:00 am</h4><p>Salio</p></a></li>
+      <li><a href="#detalle_horario"><h4>7:30 am</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>9:00 am</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>10:30 am</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>12:00 pm</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>1:30 pm</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>3:00 pm</h4><p>Cupos disponibles: 15</p></a></li>
+      <li><a href="#detalle_horario"><h4>5:00 pm</h4><p>Cupos disponibles: 15</p></a></li>
+    </ul>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#login" class="ui-btn-active ui-state-persist">Salir</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="detalle_horario">
+  <div data-role="header" data-position="fixed">
+    <h1>Lista de Asientos</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <h4>Asientos disponibles</h4>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"></div>
+      <div class="ui-block-b"></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">29</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">1</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">2</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">3</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">4</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">5</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">6</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">7</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">8</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">9</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">10</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">11</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">12</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">13</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">14</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">15</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">16</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">17</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">18</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">19</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">20</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">21</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">22</a></div>
+      <div class="ui-block-c"></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">23</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">24</a></div>
+    </div>
+    <div class="ui-grid-d">
+      <div class="ui-block-a"><a href="#detalle_asiento" class="ui-btn ui-corner-all">25</a></div>
+      <div class="ui-block-b"><a href="#detalle_asiento" class="ui-btn ui-corner-all">26</a></div>
+      <div class="ui-block-c"><a href="#detalle_asiento" class="ui-btn ui-corner-all">27</a></div>
+      <div class="ui-block-d"><a href="#detalle_asiento" class="ui-btn ui-corner-all">28</a></div>
+      <div class="ui-block-e"><a href="#detalle_asiento" class="ui-btn ui-corner-all">28</a></div>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#horarios" class="ui-btn-active ui-state-persist">Horarios</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
