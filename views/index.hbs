@@ -31,7 +31,7 @@
   <div role="main" class="ui-content">
     <form id="frm_register">
       <div class="ui-field-contain">
-        <label for="reg_identidad">Email</label>
+        <label for="reg_identidad">Identidad</label>
         <input type="text" name="reg_identidad" id="reg_identidad" placeholder="Número de Identidad" />
         <br/>
         <label for="reg_nombre">Nombre Completo</label>
@@ -151,6 +151,39 @@
     <div data-role="navbar">
       <ul>
         <li><a href="#horarios" class="ui-btn-active ui-state-persist">Horarios</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div data-role="page" id="ticket">
+  <div data-role="header" data-position="fixed">
+    <h1>Ticket</h1>
+  </div>
+  <div role="main" class="ui-content">
+    <h4>Detalle</h4>
+    <div class="ui-field-contain">
+      <label for="ticket_identidad">Identidad</label>
+      <input type="text" name="ticket_identidad" id="ticket_identidad" class="ui-state-disabled"/>
+      <br/>
+      <label for="ticket_nombre">Nombre</label>
+      <input type="text" name="ticket_nombre" id="ticket_nombre" class="ui-state-disabled"/>
+      <br/>
+      <label for="ticket_fecha">Fecha</label>
+      <input type="text" name="ticket_fecha" id="ticket_fecha" class="ui-state-disabled"/>
+      <br/>
+      <label for="ticket_hora">Hora</label>
+      <input type="text" name="ticket_hora" id="ticket_hora" class="ui-state-disabled"/>
+      <br/>
+      <label for="ticket_asiento" >No. Asiento</label>
+      <input type="text" name="ticket_asiento" id="ticket_asiento" class="ui-state-disabled"/>
+      <br/>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#detalle_horario" class="ui-btn-active ui-state-persist">Regresar</a></li>
       </ul>
     </div>
   </div>
