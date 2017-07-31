@@ -6,7 +6,9 @@ var md5 = require('md5');
 function getAPIRoutes(db) {
   var tickets = db.collection('tickets');
   var usuarios = db.collection('usuarios');
+  var horarios = db.collection('horarios');
 
+  //funcion registrar
   router.post('/register', function(req, res) {
     if (req.body.reg_clave == req.body.reg_clave_conf) {
       var newUser = {
@@ -42,8 +44,9 @@ function getAPIRoutes(db) {
         "error": "No validado"
       });
     }
-  });
+  }); //end registrar
 
+  //api de login
   router.post('/login', function(req, res) {
     var user = req.body.lgn_identidad,
       clave = req.body.lgn_clave;
@@ -88,7 +91,7 @@ function getAPIRoutes(db) {
           } else {
             req.session.identidad = "";
             req.session.userDoc = {};
-            users.updateOne({
+            usuarios.updateOne({
               "_id": doc._id
             }, {
               "$ic": {
@@ -106,7 +109,17 @@ function getAPIRoutes(db) {
         }
       }
     });
-  });
+  }); //end login
+
+  //obtener horarios
+  router.get('/horarios', function(req, res, next) {
+    horarios.find({}).toArray(function(err, horarios) {
+      if (err) {
+        return res.status(400).json([]);
+      }
+      res.status(200).json(horarios);
+    });
+  }); //end horarios
 
 
   return router;
