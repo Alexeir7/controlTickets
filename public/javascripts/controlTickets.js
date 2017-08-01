@@ -45,14 +45,13 @@ $(document).on("pagecontainerbeforeshow", function(e, ui) {
 
 //handlers
 var _currentHorario = "";
+
 function horarios_onLoad(e){
-  console.log("hola");
   obtenerHorarios(
     function(err, horarios){
       if (err) {
         return console.log("Error al cargar horarios");
       }
-      console.log("hola");
       var htmlstr = horarios.map(
         function(horario, i){
           return '<li><a href="#detalle_horario" data-id="'+horario._id._id+'"><h4>'+horario._id.tanda+'</h4><p>Cupos disponibles:'+horario.disponibles+'</p></a></li>';
@@ -70,6 +69,25 @@ function lista_horarios_onClick(e){
   var sender = $(this);
   _currentHorario = sender.data("id");
   console.log(_currentHorario);
+  obtenerHorario(_currentHorario, function(err, horario){
+    if (err) {
+      return console.log("Error al cargar horario");
+    }
+    console.log(horario);
+    $("#30").addClass("ui-btn-active ui-state-disabled");
+    for(var i = 0; i < horario.asientos.length; i++) {
+    var obj = horario.asientos[i];
+    var id = i+1;
+    if (horario.asientos[i] != 0) {
+      $("#"+id).addClass("ui-btn-active ui-state-disabled");
+    }else {
+      $("#"+id).removeClass("ui-btn-active ui-state-disabled");
+    }
+
+    console.log(obj);
+}
+    change_page("detalle_horario");
+  })
 }//horarios_onClick
 
 //ajax
@@ -99,12 +117,12 @@ function obtenerHorarios(despues){
       }
     }
   );
-}
+}//obtener horarios
 
 function obtenerHorario(id, despues){
   $.ajax(
     {
-      "url":"api/horarios",
+      "url":"api/horario/" +id,
       "method":"get",
       "data":{},
       "success": function(data, txtSucess, xhrq){

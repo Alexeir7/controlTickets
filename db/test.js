@@ -28,6 +28,6 @@ db.horarios.update(
     }}
 );
 
-db.horarios.update({"id":4}, {"$set" : {"asientos.5" : "blah"}});
+db.horarios.update({"id":4}, {"$set" : {"asientos.5" : "1"}});
 
 db.horarios.update({"_id": ObjectID("59801574148e25d2582e8caf")}, {"$set" : {"asientos.5" : 0}});

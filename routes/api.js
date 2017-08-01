@@ -113,23 +113,32 @@ function getAPIRoutes(db) {
 
   //obtener horarios
   router.get('/horarios', function(req, res, next) {
-    horarios.aggregate([
-        { "$unwind": "$asientos" },
-        {
-          "$match": {
-                "asientos": 0
+    horarios.aggregate([{
+        "$unwind": "$asientos"
+      },
+      {
+        "$match": {
+          "asientos": 0
+        }
+      },
+      {
+        "$group": {
+          "_id": {
+            "tanda": "$tanda",
+            "_id": "$_id",
+            "id": "$id"
+          },
+          "disponibles": {
+            "$sum": 1
           }
-        },
-        { "$group": {
-            "_id": {
-                "tanda": "$tanda",
-                "_id": "$_id",
-                "id": "$id"
-            },
-            "disponibles": { "$sum": 1 }
 
-        }},
-        { "$sort" :{"_id.id":1}}
+        }
+      },
+      {
+        "$sort": {
+          "_id.id": 1
+        }
+      }
     ]).toArray(function(err, horarios) {
       if (err) {
         return res.status(400).json([]);
@@ -139,19 +148,29 @@ function getAPIRoutes(db) {
   }); //end horarios
 
   router.get('/horario/:id', function(req, res, next) {
-        var id = ObjectID(req.params.id);
-        horarios.findOne({ "_id": id }, function(err, horario) {
-            if (err) {
-                console.log(err);
-                return res.status(400).json({ "error": "Error al cargar la persona" });
-            }
-            res.status(200).json(horario);
+    var id = ObjectID(req.params.id);
+    horarios.findOne({
+      "_id": id
+    }, function(err, horario) {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({
+          "error": "Error al cargar la persona"
         });
-    });// end horario/:id
-
-    router.put('reservar/:id/:asiento', function(req, res, next){
-
+      }
+      res.status(200).json(horario);
     });
+  }); // end horario/:id
+
+  router.put('/reservar/:id/:asiento', function(req, res, next) {
+    var query = { "id": req.params.id};
+    var seat = "asientos."+ req.params.asiento + ":1";
+    var update = {"$set" : {seat}};
+
+    //horarios.update({"id":4}, {"$set" : {"asientos.5" : "1"}});
+
+    res.status(200).json(update);
+  });
 
   return router;
 
