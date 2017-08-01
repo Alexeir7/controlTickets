@@ -163,13 +163,33 @@ function getAPIRoutes(db) {
   }); // end horario/:id
 
   router.put('/reservar/:id/:asiento', function(req, res, next) {
-    var query = { "id": req.params.id};
-    var seat = "asientos."+ req.params.asiento + ":1";
-    var update = {"$set" : {seat}};
+    var id = req.params.id;
+    console.log(id);
+    var asientos = "asientos.".concat(req.params.asiento);
+    console.log(asientos,"1");
 
-    //horarios.update({"id":4}, {"$set" : {"asientos.5" : "1"}});
-
-    res.status(200).json(update);
+    horarios.update({
+      "id": id
+    }, {
+      "$set": {
+        asientos: "1"
+      }
+    }, function(err, doc) {
+      if (err) {
+        res.status(403).json({
+          "error": err
+        })
+      }
+      if (doc.result.nModified) {
+        res.status(200).json({
+          "status": "ok"
+        });
+      } else {
+        res.status(400).json({
+          "error": "No se reservo el asiento seleccionado"
+        });
+      }
+    });
   });
 
   return router;
