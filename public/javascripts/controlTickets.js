@@ -1,8 +1,47 @@
+var btnloginBinded = false,
+    btnRegisterBinded = false;
+
+
 //cuando jqueryMobile se ha cargado
 $('#horarios').on('pagecreate', horarios_onLoad);
 $('#lista_horarios').on('click','a', lista_horarios_onClick);
-//funciones de inicio
 
+//funciones de inicio
+$(document).on("mobileinit", function(e){
+    $.mobile.loader.prototype.options.text = "Please Wait";
+    $.mobile.loader.prototype.options.textVisible = true;
+
+    $.ajaxSetup({
+        xhrFields:{
+            withCredentials:true
+        }
+    });
+});
+
+$(document).ajaxError(function(e, xhr, set, err){
+    if(xhr.status===403){
+        change_page("login");
+    }
+});
+
+
+$(document).on("pagecontainerbeforeshow", function(e, ui) {
+    var pageid = ui.toPage.attr("id");
+    switch (pageid) {
+        case "login":
+            if(!btnloginBinded){
+                btnloginBinded = true;
+                $("#btnLgnIn").on("click", btnLgnIn_onclick);
+            }
+            break;
+        case "register":
+            if(!btnRegisterBinded){
+                btnRegisterBinded = true;
+                $("#btnRegLgn").on("click", btnRegLgn_onclick);
+            }
+            break;
+    }
+});
 
 //handlers
 var _currentHorario = "";
@@ -76,4 +115,57 @@ function obtenerHorario(id, despues){
       }
     }
   );
+}
+
+
+function btnLgnIn_onclick(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var formValuesArray = $("#frm_login").serializeArray();
+    var formObject = {};
+    for (var i = 0; i < formValuesArray.length; i++) {
+        formObject[formValuesArray[i].name] = formValuesArray[i].value;
+    }
+    $.post("api/login",
+        formObject,
+        function(data,success,xhr){
+            $("#frm_login").get()[0].reset();
+            change_page("horarios");
+        },
+        "json"
+    ).fail(function(xhr,fail,data){
+        alert("Log In Failed! Try Again");
+    });
+}
+
+function btnRegLgn_onclick(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var formValuesArray = $("#frm_register").serializeArray();
+    var formObject = {};
+    for (var i = 0; i < formValuesArray.length; i++) {
+        formObject[formValuesArray[i].name] = formValuesArray[i].value;
+    }
+    $.post("api/register",
+        formObject,
+        function(data,success,xhr){
+            $("#frm_register").get()[0].reset();
+            change_page("login");
+        },
+        "json"
+    ).fail(function(xhr,fail,data){
+        alert("Sign Up Failed! Try Again");
+    });
+}
+
+// Funcion para cambiar de pagina
+function change_page(to) {
+    $(":mobile-pagecontainer").pagecontainer("change", "#" + to);
+}
+
+function showLoading(){
+    $.mobile.loading( 'show');
+}
+function hideLoading(){
+    $.mobile.loading( 'hide');
 }
