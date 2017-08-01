@@ -121,6 +121,16 @@ function getAPIRoutes(db) {
     });
   }); //end horarios
 
+  router.get('/horario/:id', function(req, res, next) {
+        var id = ObjectID(req.params.id);
+        horarios.findOne({ "_id": id }, function(err, horario) {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ "error": "Error al cargar la persona" });
+            }
+            res.status(200).json(horario);
+        });
+    });// end horario/:id
 
   return router;
 
