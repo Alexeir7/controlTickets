@@ -163,34 +163,52 @@ function getAPIRoutes(db) {
   }); // end horario/:id
 
   router.put('/reservar/:id/:asiento', function(req, res, next) {
-    var id = req.params.id;
-    console.log(id);
-    var asientos = "asientos.".concat(req.params.asiento);
-    console.log(asientos,"1");
 
-    horarios.update({
-      "id": id
-    }, {
-      "$set": {
-        asientos: "1"
-      }
-    }, function(err, doc) {
+    let updateObj = { $set: {} };
+    var id = ObjectID(req.params.id);
+    updateObj.$set["asientos." + req.params.asiento] = "1";
+
+    console.log(updateObj);
+    console.log(req.params.id);
+
+    horarios.update({"_id": id}, updateObj, function(err, doc){
       if (err) {
-        res.status(403).json({
-          "error": err
-        })
+        res.status(403).json({"error": err});
       }
+
       if (doc.result.nModified) {
-        res.status(200).json({
-          "status": "ok"
-        });
-      } else {
-        res.status(400).json({
-          "error": "No se reservo el asiento seleccionado"
-        });
-      }
-    });
-  });
+        res.status(200).json({"status": "ok"});
+        }
+      else {
+          res.status(400).json({"error": "No se reservo el asiento seleccionado"});
+        }
+    });//end update
+
+    // var id = req.params.id;
+    // var asiento = req.params.asiento;
+    // console.log(id);
+    // //var asientos = "asientos.".concat(req.params.asiento);
+    // console.log(asiento);
+    //
+    // horarios.update({
+    //   "id": id
+    // }, {"$set" : {['asientos.asiento' ]: "1"}}, function(err, doc) {
+    //   if (err) {
+    //     res.status(403).json({
+    //       "error": err
+    //     })
+    //   }
+    //   if (doc.result.nModified) {
+    //     res.status(200).json({
+    //       "status": "ok"
+    //     });
+    //   } else {
+    //     res.status(400).json({
+    //       "error": "No se reservo el asiento seleccionado"
+    //     });
+    //   }
+    // });
+  });//end reservar asiento por id
 
   return router;
 
