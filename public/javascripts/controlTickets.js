@@ -55,7 +55,7 @@ function horarios_onLoad(e){
       console.log("hola");
       var htmlstr = horarios.map(
         function(horario, i){
-          return '<li><a href="#detalle_horario" data-id="'+horario._id+'"><h4>'+horario.tanda+'</h4><p>Cupos disponibles: 15</p></a></li>';
+          return '<li><a href="#detalle_horario" data-id="'+horario._id._id+'"><h4>'+horario._id.tanda+'</h4><p>Cupos disponibles:'+horario.disponibles+'</p></a></li>';
         }
       ).join("");
 

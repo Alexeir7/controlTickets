@@ -113,7 +113,24 @@ function getAPIRoutes(db) {
 
   //obtener horarios
   router.get('/horarios', function(req, res, next) {
-    horarios.find({}).toArray(function(err, horarios) {
+    horarios.aggregate([
+        { "$unwind": "$asientos" },
+        {
+          "$match": {
+                "asientos": 0
+          }
+        },
+        { "$group": {
+            "_id": {
+                "tanda": "$tanda",
+                "_id": "$_id",
+                "id": "$id"
+            },
+            "disponibles": { "$sum": 1 }
+
+        }},
+        { "$sort" :{"_id.id":1}}
+    ]).toArray(function(err, horarios) {
       if (err) {
         return res.status(400).json([]);
       }
@@ -131,6 +148,10 @@ function getAPIRoutes(db) {
             res.status(200).json(horario);
         });
     });// end horario/:id
+
+    router.put('reservar/:id/:asiento', function(req, res, next){
+
+    });
 
   return router;
 
